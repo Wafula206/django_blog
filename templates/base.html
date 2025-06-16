@@ -1,0 +1,29 @@
+<!-- templates/base.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My Blog{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1><a href="{% url 'post_list' %}">AVAILABLE   BLOG(S)</a></h1>
+        {% if user.is_authenticated %}
+            <p>Welcome {{ user.username }} | 
+               <a href="{% url 'post_create' %}">New Post</a> |
+               <a href="{% url 'logout' %}">Logout</a></p>
+        {% else %}
+            <p><a href="{% url 'login' %}">Login</a></p>
+        {% endif %}
+        <hr>
+    </header>
+
+    {% block content %}{% endblock %}
+
+    <footer>
+        <hr>
+        <p>&copy; 2025 My Blog</p>
+    </footer>
+</body>
+</html>
