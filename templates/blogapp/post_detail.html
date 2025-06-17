@@ -4,7 +4,17 @@
 
 {% block content %}
   <h2>{{ post.title }}</h2>
-  <p>By {{ post.author }} | {{ post.created }}</p>
+
+  <p>
+    By <a href="{% url 'user_profile' post.author.username %}">{{ post.author.username }}</a> |
+    {{ post.created|date:"F j, Y, g:i a" }} |
+    {% if post.category %}Category: {{ post.category.name }}{% endif %}
+  </p>
+
+  {% if post.image %}
+    <img src="{{ post.image.url }}" alt="Post Image" class="post-image">
+  {% endif %}
+
   <p>{{ post.content|linebreaks }}</p>
 
   {% if user.is_authenticated and user.is_staff %}
@@ -13,5 +23,30 @@
       <a href="{% url 'post_delete' post.pk %}">Delete</a>
     </p>
   {% endif %}
+
+  <hr>
+
+  <h3>Comments</h3>
+  {% for comment in comments %}
+    <div class="comment">
+      <p><strong>{{ comment.author.username }}</strong> — {{ comment.created|date:"M d, Y H:i" }}</p>
+      <p>{{ comment.content }}</p>
+      <hr>
+    </div>
+  {% empty %}
+    <p>No comments yet. Be the first to comment!</p>
+  {% endfor %}
+
+  {% if user.is_authenticated %}
+    <h4>Leave a Comment</h4>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Post Comment</button>
+    </form>
+  {% else %}
+    <p><a href="{% url 'login' %}">Log in</a> to comment.</p>
+  {% endif %}
+
   <a href="{% url 'post_list' %}">← Back to all posts</a>
 {% endblock %}

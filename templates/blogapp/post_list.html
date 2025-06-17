@@ -5,11 +5,6 @@
 {% block content %}
   <h2>All Posts</h2>
 
-  {% if post.image %}
-  <img src="{{ post.image.url }}" alt="Post Image" style="max-width: 100%; height: auto;">
-{% endif %}
-
-
   {% if user.is_authenticated and user.is_staff %}
     <p><a href="{% url 'post_create' %}">+ Create New Post</a></p>
   {% endif %}
@@ -17,9 +12,14 @@
   {% for post in posts %}
     <div>
       <h3>{{ post.title }}</h3>
-      <p>By {{ post.author }} | {{ post.created }}</p>
-     <p>{{ post.content|truncatewords:30 }}</p>
-<a href="{% url 'post_detail' post.pk %}">Read more...</a>
+      <p>By <a href="{% url 'user_profile' post.author.username %}">{{ post.author }}</a> | {{ post.created }}</p>
+
+      {% if post.image %}
+        <img src="{{ post.image.url }}" alt="Post Image" class="post-thumbnail">
+      {% endif %}
+
+      <p>{{ post.content|truncatewords:30 }}</p>
+      <a href="{% url 'post_detail' post.pk %}">Read more...</a>
 
       {% if user.is_authenticated and user.is_staff %}
         <p>

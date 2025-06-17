@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Profile: {{ profile_user.username }}{% endblock %}
+
+{% block content %}
+  <h2>Profile: {{ profile_user.username }}</h2>
+
+  <p><strong>Username:</strong> {{ profile_user.username }}</p>
+  <p><strong>Email:</strong> {{ profile_user.email }}</p>
+  <p><strong>Joined:</strong> {{ profile_user.date_joined|date:"F j, Y" }}</p>
+
+  <h3>{{ profile_user.username }}'s Posts</h3>
+  {% for post in posts %}
+    <div>
+      <h4><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h4>
+      <p>{{ post.created|date:"M d, Y H:i" }}</p>
+      <p>{{ post.content|truncatewords:20 }}</p>
+      <hr>
+    </div>
+  {% empty %}
+    <p>This user has not written any posts yet.</p>
+  {% endfor %}
+{% endblock %}

@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('blogapp.urls')),  # ✅ Correct: include your app's urls, not the project urls
+    path('', include('blogapp.urls')),  # your app's urls, not the project urls
     path('accounts/', include('django.contrib.auth.urls')),  # login, logout
 ]
 

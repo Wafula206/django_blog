@@ -15,3 +15,25 @@ staticfiles/
 # IDEs
 .vscode/
 .idea/
+
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+
+# VSCode or PyCharm configs
+.vscode/
+.idea/
+
+# SQLite DB (optional)
+db.sqlite3
+
+# Environment variables
+.env
+
+# Django collectstatic
+/staticfiles/
