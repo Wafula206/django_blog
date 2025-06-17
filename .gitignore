@@ -37,3 +37,6 @@ db.sqlite3
 
 # Django collectstatic
 /staticfiles/
+venv/
+.env
+db.sqlite3
