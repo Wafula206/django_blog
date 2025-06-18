@@ -18,7 +18,7 @@ class UserAdmin(BaseUserAdmin):
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 
-# 4️⃣ Register your other models too (optional, but recommended):
+# 4️⃣ Register other models too (optional, but recommended):
 admin.site.register(Post)
 admin.site.register(Category)
 admin.site.register(Comment)
